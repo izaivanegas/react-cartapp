@@ -1,5 +1,3 @@
-import {getProducts} from "./services/productsService";
-import {useEffect, useState} from "react";
 import {CatalogVIew} from "./components/CatalogVIew";
 import {CardView} from "./components/CardView";
 
@@ -46,14 +44,22 @@ const[cartItems, setCartItems] = useState(initialCartItems)
 
         }
 
-
-
-
-
     }
 
+    /**
+     * Remove a product from our shopping cart
+     * Remover un producto de nuestro carrito de compra
+     * @param product
+     */
+    const handleRemoveCartItem = (product)=>{
 
+        setCartItems(
+            [
+                ...cartItems.filter(i=>i.product.id !== product.id)
+            ]
+        );
 
+    }
 
     return (
         <div className="container">
@@ -62,7 +68,7 @@ const[cartItems, setCartItems] = useState(initialCartItems)
 
 
             <div className="my-4 w-100">
-                <CardView items={cartItems} />
+                <CardView items={cartItems} handleDelete={handleRemoveCartItem} />
             </div>
         </div>
     )

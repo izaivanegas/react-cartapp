@@ -1,9 +1,16 @@
 
 
-export const CardView = ({items})=>{
+export const CardView = ({items,handleDelete})=>{
 
 
     console.log("listProduct en CardView.jsx", items);
+
+
+    const handleLocalRemoveItem = (product)=>{
+        console.log("handleLocalRemoveItem................en CardView.jsx");
+        console.log("Removiendo producto del carrito:", product.name);
+        handleDelete(product);
+    }
 
     const totalGeneral = items.reduce((sum, item) => sum + (item.total || item.product.price * item.quantity), 0);
 
@@ -40,7 +47,7 @@ export const CardView = ({items})=>{
                                         <td className="text-center">{item.quantity}</td>
                                         <td className="text-end">${(item.total || item.product.price * item.quantity).toFixed(2)}</td>
                                         <td className="text-center">
-                                            <button className="btn btn-danger btn-sm">Eliminar</button>
+                                            <button className="btn btn-danger btn-sm" onClick={()=>handleLocalRemoveItem(item.product)}>Eliminar</button>
                                         </td>
                                     </tr>
                                 ))}
