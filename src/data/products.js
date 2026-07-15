@@ -12,7 +12,7 @@ export const products = [
         description: 'Teclado compacto y delgado con conexión Bluetooth 5.0, batería recargable y teclas silenciosas.',
         price: 680.0
     },
-    {
+    /*{
         id: 3,
         name: 'Teclado gaming con switches rojos',
         description: 'Teclado mecánico con switches rojos lineales, retroiluminación RGB personalizable y reposamuñecas magnético.',
@@ -627,5 +627,5 @@ export const products = [
         name: 'Lampara LED USB para monitor',
         description: 'Lámpara de escritorio que se monta en el monitor, luz cálida/fría, ajustable, con puerto USB.',
         price: 350.0
-    }
+    }*/
 ];

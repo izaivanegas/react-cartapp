@@ -1,38 +1,60 @@
 
 
-export const CardView = ()=>{
-    
+export const CardView = ({items})=>{
+
+
+    console.log("listProduct en CardView.jsx", items);
+
+    const totalGeneral = items.reduce((sum, item) => sum + (item.total || item.product.price * item.quantity), 0);
+
         return (
-            <>
-                <h3>Carrrito de compras</h3>
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Precio</th>
-                        <th>Cantidad</th>
-                        <th>Total</th>
-                        <th>Eliminar</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>nombre</td>
-                        <td>Precio</td>
-                        <td>Cantidad</td>
-                        <td>nombre</td>
-                        <td>
-                            <button className="btn btn-danger">Eliminar</button>
-                        </td>
-                    </tr>
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <td colSpan="3" >Total</td>
-                        <td colSpan="2">12345.23</td>
-                    </tr>
-                    </tfoot>
-                </table>
-            </>
+
+            <div className="card">
+                <div className="card-header">
+                    <h5 className="mb-0">
+                        🛒 Carrito de compras
+                        <span className="badge bg-secondary ms-2">{items.length}</span>
+                    </h5>
+                </div>
+
+                <div className="card-body p-0">
+                    {items.length === 0 ? (
+                        <p className="text-center text-muted my-4">El carrito está vacío</p>
+                    ) : (
+                        <div className="table-responsive">
+                            <table className="table table-striped table-hover mb-0">
+                                <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th className="text-center">Precio</th>
+                                    <th className="text-center">Cantidad</th>
+                                    <th className="text-end">Total</th>
+                                    <th className="text-center">Acción</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {items.map(item => (
+                                    <tr key={item.product.id}>
+                                        <td>{item.product.name}</td>
+                                        <td className="text-center">${item.product.price.toFixed(2)}</td>
+                                        <td className="text-center">{item.quantity}</td>
+                                        <td className="text-end">${(item.total || item.product.price * item.quantity).toFixed(2)}</td>
+                                        <td className="text-center">
+                                            <button className="btn btn-danger btn-sm">Eliminar</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                                <tfoot>
+                                <tr className="table-active">
+                                    <td colSpan="3" className="text-end fw-bold">Total</td>
+                                    <td colSpan="2" className="text-end fw-bold">${totalGeneral.toFixed(2)}</td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    )}
+                </div>
+            </div>
         );
 }

@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {getProducts} from "../services/productsService";
 import {ProductCardView} from "./ProductCardView";
 
-export const CatalogVIew = ()=>{
+export const CatalogVIew = ({handler})=>{
 
     const [products, setProducts] = useState([])
 
@@ -17,8 +17,11 @@ export const CatalogVIew = ()=>{
         <>
             <div className="row">
             {products.map((product)=>(
-                    <div className="col-4">
-                        <ProductCardView product={product} />
+                    <div className="col-4" key={product.id || key}>
+                        <ProductCardView product={product}
+
+                                         handler={handler}
+                        />
                     </div>
                 )
             )}
