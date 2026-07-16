@@ -1,9 +1,6 @@
 import {CatalogVIew} from "./components/CatalogVIew";
 import {CardView} from "./components/CardView";
-
-
-
-
+import {useState, useEffect} from "react";
 
 const initialCartItems = [];
 
@@ -11,8 +8,18 @@ const initialCartItems = [];
 export const CartApp = ()=>{
 
 
+    const[cartItems, setCartItems] = useState(initialCartItems)
+    const[total, setTotal] = useState(0)
 
-const[cartItems, setCartItems] = useState(initialCartItems)
+    useEffect(()=>{
+        console.log("Esta pasndo aqui por que cambio");
+        const valortotal = cartItems.reduce((acc,item)=>acc + item.total ,0);
+        console.log("El valor total es: ", valortotal)
+        setTotal(
+            cartItems.reduce((acc,item)=>acc + item.total ,0)
+            )
+    },[cartItems]);
+
 
     /**
      * Agregar un producto a nuestro carrito de compras
@@ -27,10 +34,9 @@ const[cartItems, setCartItems] = useState(initialCartItems)
             setCartItems(
                cartItems.map((i)=>{
                    if(i.product.id === product.id){
-
                         i.quantity = i.quantity + 1;
-
-                   }
+                        i.total = i.quantity * i.product.price;
+                        }
                    return i;
                })
             )
@@ -68,7 +74,7 @@ const[cartItems, setCartItems] = useState(initialCartItems)
 
 
             <div className="my-4 w-100">
-                <CardView items={cartItems} handleDelete={handleRemoveCartItem} />
+                <CardView items={cartItems} handleDelete={handleRemoveCartItem}  totalGlobal={total}/>
             </div>
         </div>
     )

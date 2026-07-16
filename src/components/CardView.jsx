@@ -1,6 +1,6 @@
 
 
-export const CardView = ({items,handleDelete})=>{
+export const CardView = ({items,handleDelete,totalGlobal})=>{
 
 
     console.log("listProduct en CardView.jsx", items);
@@ -55,7 +55,7 @@ export const CardView = ({items,handleDelete})=>{
                                 <tfoot>
                                 <tr className="table-active">
                                     <td colSpan="3" className="text-end fw-bold">Total</td>
-                                    <td colSpan="2" className="text-end fw-bold">${totalGeneral.toFixed(2)}</td>
+                                    <td colSpan="2" className="text-end fw-bold">${totalGlobal.toFixed(2)}</td>
                                 </tr>
                                 </tfoot>
                             </table>
