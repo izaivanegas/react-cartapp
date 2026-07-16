@@ -2,22 +2,40 @@ import {CatalogVIew} from "./components/CatalogVIew";
 import {CardView} from "./components/CardView";
 import {useState, useEffect} from "react";
 
-const initialCartItems = [];
+
+const getInitialCartItems = ()=>{
+    try{
+        const cart = sessionStorage.getItem('cart');
+        //aqui estamos declarando que si cart es null, entonces retorne un array vacio
+        return cart ? JSON.parse(cart):[];
+    }
+    catch (e){
+        console.log("Error al parsear el carrito de compras desde sessionStorage", e);
+        return [];
+    }
+}
 
 
 export const CartApp = ()=>{
 
 
-    const[cartItems, setCartItems] = useState(initialCartItems)
+    const[cartItems, setCartItems] = useState(getInitialCartItems)
+
+
+
+
+
     const[total, setTotal] = useState(0)
 
     useEffect(()=>{
         console.log("Esta pasndo aqui por que cambio");
         const valortotal = cartItems.reduce((acc,item)=>acc + item.total ,0);
         console.log("El valor total es: ", valortotal)
+
         setTotal(
             cartItems.reduce((acc,item)=>acc + item.total ,0)
             )
+        sessionStorage.setItem('cart', JSON.stringify(cartItems));
     },[cartItems]);
 
 
